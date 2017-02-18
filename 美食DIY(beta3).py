@@ -22,7 +22,7 @@ import requests
 from bs4 import BeautifulSoup
 import traceback
 import re
-for i in range(1,50):
+for i in range(1,10):
     url = 'http://www.ttv.com.tw/cuisine/Detail2.aspx?rid={}'.format(i)
 #     url = 'http://www.ttv.com.tw/cuisine/Detail2.aspx?rid=1980'
     res = requests.get(url)

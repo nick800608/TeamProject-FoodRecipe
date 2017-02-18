@@ -54,7 +54,7 @@ for page in range(1,pagenum+1):
         mydict["main"]=main #把食材裝在 mydict的字典裡
 #         print ('name:'+ main +'\n')#印出食材名稱
         
-        #打算nth-of-type子母選擇器來篩選
+        #打算nth-of-type子母選擇器來篩選,還是大家有什麼好的解決方法???
         name_materials = soup.select(" .style13")#印出材料,作法,小祕笈,書名,菜式別,國家別,出處
         mydict["name_materials"]=name_materials
 #         print(name_materials)

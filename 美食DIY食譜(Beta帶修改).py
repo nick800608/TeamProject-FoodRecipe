@@ -8,8 +8,7 @@
 from collections import OrderedDict as od
 import json
 import csv
-import traceback as tb
-import string               
+import traceback as tb            
 import requests
 import re #import 正規表示法相關模組
 from bs4 import BeautifulSoup

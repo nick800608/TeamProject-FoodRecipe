@@ -1,0 +1,16 @@
+{'view': 714, 'delicious': '很好','created_date': '2015-08-14 15:00:06', 'service_quality': '滿意', 'category': '義式料理', 'restaurant_location': '台北市中山區南京西路12巷13弄9號', 'dining_environment': '好', 'rate': 35, 'share': 345, 'open_time': '11:30~16:00\t17:30~22:00', 'avg_consume': 275, 'image_url_count': 8, 'author_name': 'Disni', 'restaurant_name': '螺絲瑪莉 Rose Mary'}
+
+
+view  delicious  created_date  service_quality  dining_environment  rate  share  open_time  avg_consume  image_url_count  author_name  restaurant_name  category
+
+open_time >> 要轉化成 三種 早餐 午餐 晚餐 (1030>早午餐=早餐+午餐)
+
+author_name, created_date, category, restaurant_name, avg_consume, view, share, delicious, dining_environment,  service_quality,  rate
+
+
+
+
+
+
+
+

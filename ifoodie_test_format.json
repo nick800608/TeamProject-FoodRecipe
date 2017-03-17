@@ -15,39 +15,39 @@
 			"source": "https://joyce8.com/", 	//食記作者的部落客首頁
 			"location": [121.5585037, 25.0333401], 	//餐廳位置
 			"status": 0, 	//
-			"ranking": {	//
+			"ranking": {	//????????(可能是食記排名)
 			
 			}, 
-			"stat": {	//
+			"stat": {	//本篇食記狀態
 				"browse_cnt": 591, 	//觀看次數
 				"favorite_cnt": 41, 	//收藏數
-				"blog_id": "58c69d4b510504a26d4a8d55", 	//
+				"blog_id": "58c69d4b510504a26d4a8d55", 	//本篇食記ID
 				"share_cnt": 17, 	//分享數
-				"recommend_cnt": 5 	//
+				"recommend_cnt": 5 	//推薦數(不確定是不是FB的推薦之類的)
 			}, 
 			"description": "紅線對居住在三峽的我來說，真的說是天崖海角我都覺得不誇張XD，因此我非常非常少去那附近覓食，但這篇要分享給大家參考的「丰明殿御皇鍋物」信義店，是我文章數不多的信...", 	//食記的重點摘要
-			"price": 0, 	//
-			"phone": "0223450299", 	//
-			"user": { 	//
-				"fav_cnt": 37, 	//
-				"profile_pic": "https://farm1.staticflickr.com/393/20115732581_c890b88521_o.jpg", 	//
-				"follower_cnt": 735, 	//
-				"display_name": "喬伊斯", 	//
-				"thumb": "https://farm1.staticflickr.com/393/20115732581_c890b88521_o.jpg", 	//
-				"following_cnt": 10, 	//
-				"post_cnt": 182, 	//
-				"cover_url": "https://c1.staticflickr.com/1/420/30897602994_27ce9d9def_o.jpg", 	//
-				"profile_pic_origin": "https://farm1.staticflickr.com/393/20115732581_c890b88521_o.jpg", 	//
-				"browse_cnt": 126841, 	//
-				"checkin_cnt": 173, 	//
-				"is_following": false, 	//
-				"is_vip": false, 	//
-				"id": "55a3a9392756dd05d99d6850", 	//
-				"certified": true	//
+			"price": 0, 	//平均價格
+			"phone": "0223450299", 	//餐廳電話
+			"user": { 	//部落客資訊
+				"fav_cnt": 37, 	//?????????
+				"profile_pic": "https://farm1.staticflickr.com/393/20115732581_c890b88521_o.jpg", 	//部落客頭像圖片
+				"follower_cnt": 735, 	//follow此部落客的人數
+				"display_name": "喬伊斯", 	//部落客顯示名稱
+				"thumb": "https://farm1.staticflickr.com/393/20115732581_c890b88521_o.jpg", 	//部落客頭像圖片(?不知道跟另外兩個的差別)
+				"following_cnt": 10, 	//部落客following的人數
+				"post_cnt": 182, 	//部落客全部文章數
+				"cover_url": "https://c1.staticflickr.com/1/420/30897602994_27ce9d9def_o.jpg", 	//頭像圖片下面那張封面背景
+				"profile_pic_origin": "https://farm1.staticflickr.com/393/20115732581_c890b88521_o.jpg", 	//原始部落客頭像圖片
+				"browse_cnt": 126841, 	//部落客全部文章總瀏覽數
+				"checkin_cnt": 173, 	//部落客登入次數
+				"is_following": false, 	//使用者是否following
+				"is_vip": false, 	//????(不知道是部落客是否是VIP，還是查詢者)
+				"id": "55a3a9392756dd05d99d6850", 	//部落客ID
+				"certified": true	//是否完成身分驗證
 			}, 
-			"address": "臺北市信義區信義路四段393號1樓", 	//
+			"address": "臺北市信義區信義路四段393號1樓", 	//餐廳地址
 			"date": 1489334470.0, 	//食記創建時間long表示
-			"tracking": false, 	//
+			"tracking": false, 	//查詢者是否追蹤本篇食記
 			"restaurant": { 	//餐廳本身資訊
 				"city": "台北市", 	//城市
 				"name": "丰明殿", 	//餐廳名稱
@@ -64,14 +64,14 @@
 				"lat": 25.03334, 	//餐廳位置(緯度)
 				"lng": 121.558503, 	//餐廳位置(經度)
 				"id": "589f52ed2756dd5bcea2f220", 	//餐廳id
-				"phone": null	//
+				"phone": null	//餐廳電話(餐廳頁面本身提供資料)
 			}, 
 			"url": "https://joyce8.com/taipei-hotpot-2/", 	//本篇食記連到原始部落格網址
 			"is_paid": false, 	//
 			"area": "信義區", 	//
 			"posts": [], 	//
 			"tracking_id": null, 	//
-			"title": "台北信義區火鍋店：丰明殿御皇鍋物．重量級頂級肉盤超值划算！"	//
+			"title": "台北信義區火鍋店：丰明殿御皇鍋物．重量級頂級肉盤超值划算！"	//食記標題
 		}
 	], 
 	"success": true 	//查詢狀態

@@ -416,8 +416,11 @@ def allRestaurantInformationAndCommentsUrl_crawler(pre_url_str):
                 comment_page_url = 'http://www.ipeen.com.tw/touch/cmmList.php?p={}&id={}'.format(i, restaurant_id)
                 #print(comment_page_url)
                 some_commentUrl_list = restaurant_share(comment_page_url)
-                for commentUrl in some_commentUrl_list:
-                    all_commentUrl_list.append(commentUrl)
+                try:
+                    for commentUrl in some_commentUrl_list:
+                        all_commentUrl_list.append(commentUrl)
+                except:
+                    return None
             
             mydict['all_commentUrl_list'] = all_commentUrl_list            
         # else:
@@ -516,7 +519,7 @@ class HTTPError(Exception):
         return self.message
 
 def getExecutionTime(startTime):
-    if (time.time() - startTime < 300):
+    if (time.time() - startTime < 3600):
         pass
     else:
         raise AWSTimeLimitError('Time is running out')

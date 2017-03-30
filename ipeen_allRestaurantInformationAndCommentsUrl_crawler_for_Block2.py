@@ -111,6 +111,8 @@ def allRestaurantInformationAndCommentsUrl_crawler(pre_url_str):
             try:
                 #餐廳位置
                 restaurant_lat, restaurant_lng = get_location_withoutKey(restaurant_address)
+                mydict['restaurant_lat'] = restaurant_lat
+                mydict['restaurant_lng'] = restaurant_lng
                 restaurant_latlng = '{}_{}'.format(restaurant_lat, restaurant_lng)
                 #print(restaurant_latlng)
                 mydict['restaurant_latlng'] = restaurant_latlng
@@ -336,7 +338,8 @@ def allRestaurantInformationAndCommentsUrl_crawler(pre_url_str):
                         #print(open_hours)
                         open_time_list.append(open_hours)
                     else:
-                        print('未設定營業時間')
+                        #print('未設定營業時間')
+                        pass
                     mydict['open_time'] = open_time_list
 
         #官方網站&推薦菜&分類標籤
@@ -388,7 +391,7 @@ def allRestaurantInformationAndCommentsUrl_crawler(pre_url_str):
         #食記分享
         #判斷是否有食記分享
         if soup_restaurant_information.find('div', {'id': 'comment'}):    
-            print('有分享')    
+            #print('有分享')    
             #取得總共有幾篇
             pre_comment_number_str = soup_restaurant_information.find('div', {'id': 'comment'}).h3.text
             
@@ -450,9 +453,9 @@ def allRestaurantInformationAndCommentsUrl_crawler(pre_url_str):
 
         phoneEndTime = time.time()
         print(phoneEndTime - phoneStartTime)
-		
-#-----------------------------------------------	
-	  
+        
+#-----------------------------------------------
+
 
 def restaurant_share(comment_page_url):    
     try:
@@ -470,8 +473,12 @@ def restaurant_share(comment_page_url):
     
     for pre_comment_url in pre_comment_url_list:
         
-#         comment_dict = {}
+        comment_dict = {}
         
+        this_author = pre_comment_url.select('li')[1].text.split('：')[0]
+        #print(this_author)
+        comment_dict['comment_author'] = this_author
+    
         this_pre_comment_url = pre_comment_url.parent['href']
         #print(this_pre_comment_url)
         comment_id = this_pre_comment_url.split('=')[-1]
@@ -485,11 +492,12 @@ def restaurant_share(comment_page_url):
         comment_title = pre_comment_url.li.text
         #print(comment_title)
         
-        some_commentUrl_list.append(comment_url)
+        comment_dict['comment_url'] = comment_url
+        
+        some_commentUrl_list.append(comment_dict)
     
     return some_commentUrl_list
-	
-	
+
 #-----------------------------------------------
 
 
@@ -505,18 +513,18 @@ class HTTPError(Exception):
         self.message=msg
    
     def __str__(self):
-        return self.message		
-		
+        return self.message
+
 def getExecutionTime(startTime):
     if (time.time() - startTime < 300):
         pass
     else:
         raise AWSTimeLimitError('Time is running out')
-		
-		
-#-----------------------------------------------		
-		
-		
+
+        
+#-----------------------------------------------
+
+
 def reduce_allRestaurantInformationAndCommentsUrl_SplitBlock_function(q,startTime):
     try:
         rf = open('all_restaurant_list_block2.txt', 'r',encoding='utf8')
@@ -540,7 +548,11 @@ def reduce_allRestaurantInformationAndCommentsUrl_SplitBlock_function(q,startTim
         for restaurants in range(len(all_restaurant_list)):
             pre_url_str = all_restaurant_list.pop()
             q.put(pre_url_str)
-			
+
+
+#-----------------------------------------------
+
+
 if __name__ == '__main__':   
     
     startTime = time.time()  
@@ -576,7 +588,7 @@ if __name__ == '__main__':
         with open('all_restaurant_list_block2.txt', 'w', encoding='utf8') as wf:
             while not q.empty():                    
                 page = q.get()
-                wf.write(page + '\n')				
+                wf.write(page + '\n')
     
     #print(json_objects_list)
     
@@ -592,8 +604,4 @@ if __name__ == '__main__':
     endTime = time.time() 
     totalExecutionTime = str(endTime-startTime)
     print('[INFO]good')
-    print('[INFO]TotalExecutionTime = ' + totalExecutionTime)			
-			
-			
-			
-	
+    print('[INFO]TotalExecutionTime = ' + totalExecutionTime)

@@ -81,8 +81,8 @@ def allRestaurantInformationAndCommentsUrl_crawler(pre_url_str):
         try:
             res_restaurant_information = r.get(restaurant_information_url, headers=header1)
             mydict['web_url'] = restaurant_information_url
-        except:            
-            print('[ERROR]requests error')
+        except HTTPError:  
+            raise HTTPError('[ERROR]requests error')
             return None
         
         #print(res_restaurant_information.status_code)
@@ -500,8 +500,15 @@ class AWSTimeLimitError(Exception):
     def __str__(self):
         return self.message
 
+class HTTPError(Exception):
+    def __init__(self,msg):
+        self.message=msg
+   
+    def __str__(self):
+        return self.message		
+		
 def getExecutionTime(startTime):
-    if (time.time() - startTime < 2400):
+    if (time.time() - startTime < 300):
         pass
     else:
         raise AWSTimeLimitError('Time is running out')
@@ -545,8 +552,10 @@ if __name__ == '__main__':
     
     t1.start()
     t1.join()
-    
-    f1 = open('all_RestaurantInformationAndCommentsUrl.json', 'a+',encoding='utf8')
+
+    this_time = time.time()
+    this_file = 'all_RestaurantInformationAndCommentsUrl{}.json'.format(this_time)
+    f1 = open(this_file, 'w',encoding='utf8')
    
     try:
         while not q.empty():
@@ -562,7 +571,12 @@ if __name__ == '__main__':
         with open('all_restaurant_list_block1.txt', 'w', encoding='utf8') as wf:
             while not q.empty():                    
                 page = q.get()
-                wf.write(page + '\n')       
+                wf.write(page + '\n')  
+    except HTTPError:
+        with open('all_restaurant_list_block1.txt', 'w', encoding='utf8') as wf:
+            while not q.empty():                    
+                page = q.get()
+                wf.write(page + '\n')				
     
     #print(json_objects_list)
     

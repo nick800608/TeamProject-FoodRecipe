@@ -123,47 +123,53 @@ def allRestaurantInformationAndCommentsUrl_crawler(pre_url_str):
 
         #電話
         
-        phone_number = soup_restaurant_information.find('span', {'itemprop': 'telephone'}).text
-        if re.match(phone_pattern, phone_number):
-            #print(phone_number)
-            mydict['phone_number'] = phone_number
-        else:
-            print("can't find phone_number")
-
-        first_li_under_ul = soup_restaurant_information.find('li', {'itemprop': 'aggregateRating'})
-
-        #綜合評分
-        aggregateRating_int = int(first_li_under_ul.find('span', {'itemprop': 'ratingValue'}).text)
-        if aggregateRating_int != 0:
-            #print(aggregateRating_int)
-            mydict['avg_rate'] = aggregateRating_int
-        else:
-            print('無有效綜合評分')
-
-        #平均消費&餐廳類別
-        third_li_under_ul = first_li_under_ul.find_next_sibling().find_next_sibling()
-        if re.match('平均消費', third_li_under_ul.text):
-            
-            avg_consume = third_li_under_ul.text.split('：')[1]
-            if ',' in avg_consume:
-                c1 = avg_consume.split(',')
-                c2 = ''.join(c1)
-                #print(c2)
-                mydict['avg_consume'] = int(c2)
-                
+        try:
+            phone_number = soup_restaurant_information.find('span', {'itemprop': 'telephone'}).text
+            if re.match(phone_pattern, phone_number):
+                #print(phone_number)
+                mydict['phone_number'] = phone_number
             else:
-                #print(avg_consume)
-                mydict['avg_consume'] = int(avg_consume)
-                        
-            category = third_li_under_ul.find_next_sibling().text
-            #print(category)
-            mydict['category'] = category
-        else:
-            #print('沒有均消')
-            
-            category = third_li_under_ul.text
-            #print(category)
-            mydict['category'] = category
+                print("can't find phone_number")
+        except:
+            print("can't find span for phone_number")
+
+        try:
+            first_li_under_ul = soup_restaurant_information.find('li', {'itemprop': 'aggregateRating'})
+
+            #綜合評分
+            aggregateRating_int = int(first_li_under_ul.find('span', {'itemprop': 'ratingValue'}).text)
+            if aggregateRating_int != 0:
+                #print(aggregateRating_int)
+                mydict['avg_rate'] = aggregateRating_int
+            else:
+                print('無有效綜合評分')
+
+            #平均消費&餐廳類別
+            third_li_under_ul = first_li_under_ul.find_next_sibling().find_next_sibling()
+            if re.match('平均消費', third_li_under_ul.text):
+
+                avg_consume = third_li_under_ul.text.split('：')[1]
+                if ',' in avg_consume:
+                    c1 = avg_consume.split(',')
+                    c2 = ''.join(c1)
+                    #print(c2)
+                    mydict['avg_consume'] = int(c2)
+
+                else:
+                    #print(avg_consume)
+                    mydict['avg_consume'] = int(avg_consume)
+
+                category = third_li_under_ul.find_next_sibling().text
+                #print(category)
+                mydict['category'] = category
+            else:
+                #print('沒有均消')
+
+                category = third_li_under_ul.text
+                #print(category)
+                mydict['category'] = category
+        except:
+            print("can't find li_under_ul")
 
         #營業時間&官方網站&推薦菜&分類標籤
         all_th_in_table = soup_restaurant_information.table.findAll('th')
@@ -519,12 +525,12 @@ class HTTPError(Exception):
         return self.message
 
 def getExecutionTime(startTime):
-    if (time.time() - startTime < 3600):
+    if (time.time() - startTime < 3550):
         pass
     else:
         raise AWSTimeLimitError('Time is running out')
 
-        
+
 #-----------------------------------------------
 
 
@@ -559,7 +565,7 @@ def reduce_allRestaurantInformationAndCommentsUrl_SplitBlock_function(q,startTim
 if __name__ == '__main__':   
     
     startTime = time.time()  
-    
+    lastWriteTime = time.time()    
     json_objects_list = []
     
     q = Queue()
@@ -571,11 +577,24 @@ if __name__ == '__main__':
     this_time = time.time()
     this_file = 'all_RestaurantInformationAndCommentsUrl{}.json'.format(this_time)
     f1 = open(this_file, 'w',encoding='utf8')
+	
+
    
     try:
         while not q.empty():
             time.sleep(2)
             getExecutionTime(startTime)
+			
+			
+            if (time.time() - lastWriteTime < 30):
+                pass				
+            else:
+                data = json.dumps(json_objects_list, ensure_ascii=False)
+                f1.write(data)
+                json_objects_list = []
+                print('f1 has wrote')
+                lastWriteTime = time.time()
+
             allRestaurantInformationAndCommentsUrl_crawler(q.get())
             
         with open('success_all_restaurant_list_block1.txt', 'w', encoding='utf8') as wsf:

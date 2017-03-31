@@ -95,6 +95,8 @@ def allRestaurantInformationAndCommentsUrl_crawler(pre_url_str):
             mydict['restaurant_name'] = restaurant_name
         except:
             print("can't find restaurant_name")
+			print("move to next restaurant_page")
+			return None
 
         #餐廳地址 與 餐廳位置 與 googleMapUrl
         try:

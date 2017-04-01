@@ -498,7 +498,7 @@ def restaurant_share(comment_page_url):
 #         comment_url = 'http://www.ipeen.com.tw{}'.format(this_pre_comment_url)
         #產生Web版URL
         comment_url = 'http://www.ipeen.com.tw/comment/{}'.format(comment_id) 
-        #print(comment_url)     
+        print(comment_url)     
         
         comment_title = pre_comment_url.li.text
         #print(comment_title)
@@ -506,17 +506,21 @@ def restaurant_share(comment_page_url):
         comment_dict['comment_url'] = comment_url
         
         #接到下一隻function  comment_crawler
-        author_id,created_date,delicious,service_quality,dining_environment,read_int,share_int = comment_crawler(comment_url)
-        
-        comment_dict['author_id'] = author_id
-        comment_dict['created_date'] = created_date
-        comment_dict['delicious'] = delicious
-        comment_dict['service_quality'] = service_quality
-        comment_dict['dining_environment'] = dining_environment
-        comment_dict['share_int'] = share_int
-        
-        
-        some_commentUrl_list.append(comment_dict)
+        try:
+            author_id,created_date,delicious,service_quality,dining_environment,read_int,share_int = comment_crawler(comment_url)
+
+            comment_dict['author_id'] = author_id
+            comment_dict['created_date'] = created_date
+            comment_dict['delicious'] = delicious
+            comment_dict['service_quality'] = service_quality
+            comment_dict['dining_environment'] = dining_environment
+            comment_dict['share_int'] = share_int
+
+
+            some_commentUrl_list.append(comment_dict)
+            
+        except TypeError:
+            pass
     
     return some_commentUrl_list
 
@@ -608,7 +612,7 @@ class HTTPError(Exception):
         return self.message
 
 def getExecutionTime(startTime):
-    if (time.time() - startTime < 60):
+    if (time.time() - startTime < 3600):
         pass
     else:
         raise AWSTimeLimitError('Time is running out')
